@@ -68,3 +68,17 @@ const config = {
 
 export default config;
 ```
+### Create the Rust Project more detail visit https://tauri.app/v1/guides/getting-started/setup/sveltekit/
+npm install --save-dev @tauri-apps/cli
+
+#### modify package.json 
+```js
+"scripts": {
+  "tauri": "tauri"
+}
+```
+
+#### then run to init backend project
+npm run tauri init 
+#### run tauri app
+npm run tauri dev
