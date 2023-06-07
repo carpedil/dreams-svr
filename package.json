@@ -1,5 +1,5 @@
 {
-	"name": "dreams-api",
+	"name": "dreams-svr",
 	"version": "0.0.1",
 	"private": true,
 	"scripts": {
