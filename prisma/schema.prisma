@@ -45,6 +45,7 @@ model Scenario {
 model ApiMessage {
   Id Int @id @unique @default(autoincrement())
   FuncName String
+  ApiName String
   Platform String
   HDR String
   Sendto String?
