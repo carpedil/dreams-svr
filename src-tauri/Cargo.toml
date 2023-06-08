@@ -10,6 +10,8 @@ edition = "2021"
 rust-version = "1.60"
 
 # See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
+[workspace]
+member= ['.','migration','entity']
 
 [build-dependencies]
 tauri-build = { version = "1.3.0", features = [] }
@@ -18,9 +20,26 @@ tauri-build = { version = "1.3.0", features = [] }
 serde_json = "1.0"
 serde = { version = "1.0", features = ["derive"] }
 tauri = { version = "1.3.0", features = [] }
+tokio-test="0.4.1" # for async function test
+
+migration= {path='migration'}
+entity= {path='entity'}
+dotenvy = "0.15.7"
+
 
 [features]
 # this feature is used for production builds or when `devPath` points to the filesystem and the built-in dev server is disabled.
 # If you use cargo directly instead of tauri's cli you can use this feature flag to switch between tauri's `dev` and `build` modes.
 # DO NOT REMOVE!!
-custom-protocol = [ "tauri/custom-protocol" ]
+custom-protocol = ["tauri/custom-protocol"]
+
+[dependencies.sea-orm]
+version = "0.11.0" # sea-orm version
+features = [
+    "debug-print",
+    # "runtime-tokio-native-tls",
+    "runtime-tokio-rustls",
+    # "sqlx-postgres",
+    # "sqlx-mysql",
+    "sqlx-sqlite",
+]

@@ -1,0 +1,59 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "sqlite"
+  url      = env("DATABASE_URL")
+}
+
+model Module {
+  Id Int @id @unique @default(autoincrement())
+  Name String @unique
+  Uri String
+  Functions Function[]
+}
+
+
+model Function {
+  Id Int @id @unique @default(autoincrement())
+  Name String
+  Uri String
+  ModuleName String
+  Scenarios Scenario[]
+  RefModule Module @relation(references: [Name],fields: [ModuleName])
+}
+
+model Scenario {
+  Id Int @id @unique @default(autoincrement())
+  Name String
+  FuncName String
+  OldRawLogs String?
+  NewRawLogs String?
+  Comment String?
+  FuncId Int
+  CreateAt DateTime? @default(now()) 
+  UpdatedAt DateTime? @default(now()) @updatedAt
+  messages ApiMessage[]
+  RefFunction Function @relation(references: [Id],fields: [FuncId])
+}
+
+
+model ApiMessage {
+  Id Int @id @unique @default(autoincrement())
+  FuncName String
+  Platform String
+  HDR String
+  Sendto String?
+  Received String?
+  SendParams String?
+  ReceivedParams String?
+  Comment String?
+  ScenarioId Int
+  CreateAt DateTime? @default(now()) 
+  UpdatedAt DateTime? @default(now()) @updatedAt
+  RefScenario Scenario @relation(references: [Id],fields: [ScenarioId])
+}
