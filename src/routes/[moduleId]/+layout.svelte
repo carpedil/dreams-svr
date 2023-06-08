@@ -3,7 +3,6 @@
 		AppShell,
 		TabGroup,
 		Tab,
-		clipboard,
 		Accordion,
 		AccordionItem,
 		Modal,
