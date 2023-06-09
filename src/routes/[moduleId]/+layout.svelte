@@ -3,8 +3,6 @@
 		AppShell,
 		TabGroup,
 		Tab,
-		Accordion,
-		AccordionItem,
 		Modal,
 		modalStore,
 		type ModalSettings
@@ -12,6 +10,7 @@
 	import type { PageData } from './$types';
 	import { page } from '$app/stores';
 	import { ScenarioData } from '$lib/scenario';
+	import ApiMessageList from '$lib/components/ApiMessageList.svelte';
 	let tabSet: string = '';
 
 	export let data: PageData;
@@ -37,17 +36,17 @@
 		if (id !== undefined) scenario.FuncId = id;
 	};
 
-	const handleOldMessageChange = () => {
-		// console.log(scenarioObj);
+	const handleOldMessageChange: (e: any) => void = (evt) => {
+		scenario.OldRawLogs = evt.target.value;
 		let oldmessages = scenario.extractMessages(scenario.OldRawLogs);
 		scenario.set_old_api_message(oldmessages);
-		console.log(scenario);
+		// console.log(scenario);
 	};
-	const handleNewMessageChange = () => {
-		// console.log(scenarioObj);
+	const handleNewMessageChange: (e: any) => void = (evt) => {
+		scenario.NewRawLogs = evt.target.value;
 		let newmessages = scenario.extractMessages(scenario.NewRawLogs);
 		scenario.set_new_api_message(newmessages);
-		console.log(scenario);
+		// console.log(scenario);
 	};
 
 	const save = () => {
@@ -59,8 +58,6 @@
 	};
 
 	$: classesActive = (href: string) => (href === $page.url.pathname ? '!bg-primary-500' : '');
-	$: _OldApiMessages = scenario.OldApiMessages;
-	$: _NewApiMessages = scenario.NewApiMessages;
 </script>
 
 <AppShell>
@@ -99,7 +96,6 @@
 					<input
 						class="input rounded-none"
 						type="text"
-						bind:value={scenario.OldRawLogs}
 						placeholder="Enter the log information about using the old server. eg.>>> 10.9.64.28"
 						on:change={handleOldMessageChange}
 					/>
@@ -108,7 +104,6 @@
 					<input
 						class="input rounded-none"
 						type="text"
-						bind:value={scenario.NewRawLogs}
 						placeholder="Enter the log information about using the new server. eg.>>> 10.9.64.83"
 						on:change={handleNewMessageChange}
 					/>
@@ -121,50 +116,10 @@
 						placeholder="Enter the scenario In which the current log file operation is generated, such as opening the Job In function interface and clicking the drop-down list."
 					/>
 				</label>
-				<div class="card flex flex-row justify-evenly h-[45vh]">
-					{#if _OldApiMessages.length != 0}
-						<div class="flex-1">
-							<Accordion>
-								{#each _OldApiMessages as msg, index}
-									<AccordionItem hover="hover:bg-primary-hover-token">
-										<svelte:fragment slot="lead">
-											<div class="flex flex-row items-center">
-												<span class="badge-icon variant-filled-secondary mr-2">{index + 1}</span>
-												<h3 class="h3">{msg.ApiName}</h3>
-											</div>
-										</svelte:fragment>
-										<svelte:fragment slot="summary"><h3 class="h3">{msg.HDR}</h3></svelte:fragment>
-										<svelte:fragment slot="content">
-											<h4 class="h4">{msg.Sendto}</h4>
-											<h5 class="h5">{msg.Received}</h5>
-										</svelte:fragment>
-									</AccordionItem>
-								{/each}
-							</Accordion>
-						</div>
-					{/if}
-					{#if _NewApiMessages.length != 0}
-						<div class="flex-1">
-							<Accordion>
-								{#each _NewApiMessages as msg, index}
-									<AccordionItem hover="hover:bg-primary-hover-token">
-										<svelte:fragment slot="lead">
-											<div class="flex flex-row items-center">
-												<span class="badge-icon variant-filled-secondary mr-2">{index + 1}</span>
-												<h3 class="h3">{msg.ApiName}</h3>
-											</div>
-										</svelte:fragment>
-										<svelte:fragment slot="summary"><h3 class="h3">{msg.HDR}</h3></svelte:fragment>
-										<svelte:fragment slot="content">
-											<p>{msg.Sendto}</p>
-											<p>{msg.Received}</p>
-										</svelte:fragment>
-									</AccordionItem>
-								{/each}
-							</Accordion>
-						</div>
-					{/if}
-				</div>
+				<ApiMessageList
+					_OldApiMessages={scenario.OldApiMessages}
+					_NewApiMessages={scenario.NewApiMessages}
+				/>
 				<label class="label flex flex-row items-center">
 					<input
 						class="input rounded-none"
@@ -178,10 +133,6 @@
 				<button class="btn variant-filled-secondary rounded-none w-full" on:click={save}
 					>Save</button
 				>
-
-				<div>
-					data : <span>{JSON.stringify(scenario, null, 6)} </span>
-				</div>
 			</svelte:fragment>
 		</TabGroup>
 	</div>
