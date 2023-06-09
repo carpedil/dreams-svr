@@ -16,8 +16,18 @@
 		><h3 class="h3">{msg.HDR} | {msg.Platform.toUpperCase()}</h3></svelte:fragment
 	>
 	<svelte:fragment slot="content">
-		<CodeBlock language="console" lineNumbers code={msg.Sendto} />
-		<CodeBlock language="console" lineNumbers code={msg.Received} />
+		<CodeBlock
+			language="console"
+			code={msg.Sendto}
+			color="text-blue-400"
+			background="bg-slate-600"
+		/>
+		<CodeBlock
+			language="console"
+			code={msg.Received}
+			color="text-red-400"
+			background="bg-slate-600"
+		/>
 		<input
 			class="input rounded-none"
 			type="text"

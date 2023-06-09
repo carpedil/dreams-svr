@@ -5,7 +5,7 @@
 
 	export let _OldApiMessages: ApiMessage[];
 	export let _NewApiMessages: ApiMessage[];
-	export let viewHeight: number = 45;
+	export let viewHeight: number = 40;
 </script>
 
 <div class="card flex flex-row justify-evenly h-[{viewHeight}vh] overflow-y-scroll">

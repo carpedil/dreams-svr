@@ -24,7 +24,7 @@ export class ScenarioData {
 	extractMessages(logs: string): ApiMessage[] {
 		const regex = /(SendMessage|ReceiveMsg|Send Data|Received Data)/;
 		const pattern = getDatePattern(logs);
-		let formated = formateStr(logs, pattern);
+		let formated = formateStr(optimizeLineBreakerAndWhiteSpace(logs), pattern);
 
 		const result = [];
 		const lines = formated.split('\n');

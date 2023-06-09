@@ -25,7 +25,7 @@
 	};
 </script>
 
-<div class="card p-5">
+<div class="card pl-[14vw]">
 	<div class="table-container">
 		<table class="table table-hover">
 			<thead>

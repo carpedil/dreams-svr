@@ -21,10 +21,10 @@ export async function POST(RequestEvent: any) {
 			ScenarioId: reqData.ScenarioId
 		}
 	});
-	// const jsonStr = JSON.stringify(scenario,null,4)
-	console.log('created message : ', message.Id);
+
+	const jsonStr = JSON.stringify(message, null, 4);
 
 	return json({
-		message: `created new message ${message.Id} !`
+		message: `created new message ${jsonStr} !`
 	});
 }

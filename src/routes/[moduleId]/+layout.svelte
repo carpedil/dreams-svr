@@ -101,7 +101,7 @@
 	<svelte:fragment slot="sidebarLeft">
 		<div
 			id="sidebar-left"
-			class="card list-nav h-[92.5vh] w-[15vw] p-5 text-2xl hidden lg:block rounded-none"
+			class="card list-nav h-[92.5vh] w-[14vw] p-5 text-2xl rounded-none fixed"
 		>
 			<ul>
 				{#each data.functions as func}
@@ -112,7 +112,7 @@
 			</ul>
 		</div>
 	</svelte:fragment>
-	<div class=" flex justify-start">
+	<div class="flex justify-start pl-[14vw]">
 		<TabGroup
 			justify="justify-start"
 			active="variant-filled-secondary"
