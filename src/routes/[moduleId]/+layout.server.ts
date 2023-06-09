@@ -6,9 +6,9 @@ export const load = async (serverLoadEvent: { params: any }) => {
 	const { params } = serverLoadEvent;
 	const { moduleId } = params;
 
-	const functions = await prisma.function.findMany({
+	const functions = await prisma.functions.findMany({
 		where: {
-			ModuleName: {
+			ModuleUri: {
 				equals: `/${moduleId}`
 			}
 		}
@@ -20,6 +20,7 @@ export const load = async (serverLoadEvent: { params: any }) => {
 
 	console.log(functions);
 	return {
+		moduleId,
 		functions
 	};
 };

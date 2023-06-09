@@ -7,7 +7,7 @@
 	import '../app.postcss';
 	import { AppShell, LightSwitch, storeHighlightJs } from '@skeletonlabs/skeleton';
 	import type { PageData } from './$types';
-	
+
 	import hljs from 'highlight.js';
 	storeHighlightJs.set(hljs);
 

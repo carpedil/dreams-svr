@@ -12,19 +12,19 @@ datasource db {
 
 model Module {
   Id Int @id @unique @default(autoincrement())
-  Name String @unique
-  Uri String
-  Functions Function[]
+  Name String 
+  Uri String @unique
+  Functions Functions[]
 }
 
 
-model Function {
+model Functions {
   Id Int @id @unique @default(autoincrement())
   Name String
   Uri String
-  ModuleName String
+  ModuleUri String
   Scenarios Scenario[]
-  RefModule Module @relation(references: [Name],fields: [ModuleName])
+  RefModule Module @relation(references: [Uri],fields: [ModuleUri])
 }
 
 model Scenario {
@@ -38,7 +38,7 @@ model Scenario {
   CreateAt DateTime? @default(now()) 
   UpdatedAt DateTime? @default(now()) @updatedAt
   messages ApiMessage[]
-  RefFunction Function @relation(references: [Id],fields: [FuncId])
+  RefFunction Functions @relation(references: [Id],fields: [FuncId])
 }
 
 

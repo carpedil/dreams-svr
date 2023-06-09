@@ -9,11 +9,12 @@
 	} from '@skeletonlabs/skeleton';
 	import type { PageData } from './$types';
 	import { page } from '$app/stores';
-	import { ScenarioData } from '$lib/scenario';
+	import { ApiMessage, ScenarioData } from '$lib/scenario';
 	import ApiMessageList from '$lib/components/ApiMessageList.svelte';
-	let tabSet: string = '';
-
 	export let data: PageData;
+
+	let tabSet: string = '';
+	let output: string = '';
 
 	const modal: ModalSettings = {
 		type: 'alert',
@@ -49,12 +50,37 @@
 		// console.log(scenario);
 	};
 
-	const save = () => {
+	const save = async () => {
 		if (scenario.IsInValid()) {
 			modalStore.trigger(modal);
 			return;
 		}
-		console.log(scenario);
+		// console.log(scenario);
+		let response = await fetch(`/${data.moduleId}/save`, {
+			method: 'POST',
+			body: JSON.stringify(scenario)
+		});
+
+		const res = await response.json();
+		output += `${res.message} \n`;
+		scenario.OldApiMessages.forEach((message: ApiMessage) => {
+			message.ScenarioId = res.Id;
+		});
+		scenario.NewApiMessages.forEach((message: ApiMessage) => {
+			message.ScenarioId = res.Id;
+		});
+
+		let mergedApiMessageList = [...scenario.OldApiMessages, ...scenario.NewApiMessages];
+		// console.log(mergedApiMessageList);
+		mergedApiMessageList.forEach(async (message: ApiMessage) => {
+			let response = await fetch(`/${data.moduleId}/save/message`, {
+				method: 'POST',
+				body: JSON.stringify(message)
+			});
+			const res = await response.json();
+			output += `${res.message} \n`;
+			// console.log(res.message);
+		});
 	};
 
 	$: classesActive = (href: string) => (href === $page.url.pathname ? '!bg-primary-500' : '');
@@ -133,6 +159,15 @@
 				<button class="btn variant-filled-secondary rounded-none w-full" on:click={save}
 					>Save</button
 				>
+				<label class="label">
+					<span>Output:</span>
+					<textarea
+						class="textarea rounded-none"
+						rows="4"
+						placeholder="Lorem ipsum dolor sit amet consectetur adipisicing elit."
+						bind:value={output}
+					/>
+				</label>
 			</svelte:fragment>
 		</TabGroup>
 	</div>
