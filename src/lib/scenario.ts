@@ -1,4 +1,5 @@
 import { extract, formateStr, getDatePattern, optimizeLineBreakerAndWhiteSpace } from './helper';
+import type { ApiMessage as Api } from '@prisma/client';
 
 declare type invalidated = null | undefined | '';
 
@@ -76,7 +77,7 @@ export class ScenarioData {
 	scenarioNameAndIdValidation(): this is invalidated {
 		if (this.Name === null || this.Name === undefined || this.Name === '') {
 			return true;
-		} 
+		}
 		return false;
 	}
 }
@@ -112,6 +113,22 @@ export class ApiMessage {
 	set_edition(data: string) {
 		const datetime = new Date();
 		this.Platform = data.includes(`${datetime.getFullYear().toString()}-`) ? 'win10' : 'Xp';
+	}
+
+	static into(apiMessage: Api): ApiMessage {
+		let that = new ApiMessage();
+		that.FuncName = apiMessage.FuncName;
+		that.ApiName = apiMessage.ApiName;
+		that.Platform = apiMessage.Platform;
+		that.HDR = apiMessage.HDR;
+		that.Sendto = apiMessage.Sendto;
+		that.Received = apiMessage.Received;
+		that.SendParams = apiMessage.SendParams.split(';');
+		that.ReceivedParams = apiMessage.ReceivedParams.split(';');
+		that.Comment = apiMessage.Comment;
+		that.ScenarioId = apiMessage.ScenarioId;
+
+		return that;
 	}
 
 	extractParams(sendto: string, received: string) {

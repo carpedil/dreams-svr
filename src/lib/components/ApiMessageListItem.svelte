@@ -12,7 +12,9 @@
 			<h3 class="h3 bg-green-500 pr-2 pl-2">/{msg.ApiName}</h3>
 		</div>
 	</svelte:fragment>
-	<svelte:fragment slot="summary"><h3 class="h3">{msg.HDR}</h3></svelte:fragment>
+	<svelte:fragment slot="summary"
+		><h3 class="h3">{msg.HDR} | {msg.Platform.toUpperCase()}</h3></svelte:fragment
+	>
 	<svelte:fragment slot="content">
 		<CodeBlock language="console" lineNumbers code={msg.Sendto} />
 		<CodeBlock language="console" lineNumbers code={msg.Received} />

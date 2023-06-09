@@ -1,31 +1,60 @@
 <script lang="ts">
-	import { clipboard } from '@skeletonlabs/skeleton';
+	import ApiMessageList from '$lib/components/ApiMessageList.svelte';
+	import { ApiMessage as ApiMessageData } from '$lib/scenario';
+	import type { ApiMessage as Api } from '@prisma/client';
+
+	export let data: any;
+	let selectedScenarioMessageSet: Api[] = [];
+	let _OldApiMessages: ApiMessageData[] = [];
+	let _NewApiMessages: ApiMessageData[] = [];
+
+	const handleClick = (scenario: any): any => {
+		_OldApiMessages = [];
+		_NewApiMessages = [];
+		// console.log(scenario);
+		selectedScenarioMessageSet = scenario.messages;
+
+		selectedScenarioMessageSet.forEach((message: Api) => {
+			if (message.Platform === 'Xp') {
+				_OldApiMessages.push(ApiMessageData.into(message));
+			} else {
+				_NewApiMessages.push(ApiMessageData.into(message));
+			}
+		});
+		console.log(_OldApiMessages, _NewApiMessages);
+	};
 </script>
 
-<div class="card card-hover h-full p-5">
-	<label class="label flex flex-row items-center">
-		<button class="rounded-none" use:clipboard={{ input: 'exampleInput' }}>Copy</button>
-		<input
-			class="input rounded-none"
-			type="text"
-			data-clipboard="exampleInput"
-			value=""
-			placeholder="Message 1"
-		/>
-	</label>
-
-	<label class="label">
-		<input class="input rounded-none" type="text" placeholder="Message 2" />
-	</label>
-
-	<label class="label">
-		<span>Select</span>
-		<select class="select rounded-none">
-			<option value="1">Option 1</option>
-			<option value="2">Option 2</option>
-			<option value="3">Option 3</option>
-			<option value="4">Option 4</option>
-			<option value="5">Option 5</option>
-		</select>
-	</label>
+<div class="card p-5">
+	<div class="table-container">
+		<table class="table table-hover">
+			<thead>
+				<tr>
+					<th>#</th>
+					<th>FunctionName</th>
+					<th>ScenarioName</th>
+					<th>Comment</th>
+					<th>Messages</th>
+				</tr>
+			</thead>
+			<tbody>
+				{#each data.func.Scenarios as row, i}
+					<tr on:click={handleClick(row)}>
+						<td>{row.Id}</td>
+						<td>{row.FuncName}</td>
+						<td>{row.Name}</td>
+						<td>{row.Comment}</td>
+						<td>{row.messages.length}</td>
+					</tr>
+				{/each}
+			</tbody>
+			<tfoot>
+				<tr>
+					<th colspan="3">Total Scenarios</th>
+					<td>{data.func.Scenarios.length}</td>
+				</tr>
+			</tfoot>
+		</table>
+	</div>
+	<ApiMessageList {_OldApiMessages} {_NewApiMessages} viewHeight={65} />
 </div>

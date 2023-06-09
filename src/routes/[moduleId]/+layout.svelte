@@ -41,7 +41,7 @@
 		if (scenario.funcNameAndIdValidation()) {
 			modalStore.trigger(modal);
 			evt.target.value = '';
-			return 
+			return;
 		}
 		scenario.OldRawLogs = evt.target.value;
 		let oldmessages = scenario.extractMessages(scenario.OldRawLogs);
@@ -52,7 +52,7 @@
 		if (scenario.funcNameAndIdValidation()) {
 			modalStore.trigger(modal);
 			evt.target.value = '';
-			return 
+			return;
 		}
 		scenario.NewRawLogs = evt.target.value;
 		let newmessages = scenario.extractMessages(scenario.NewRawLogs);
@@ -63,7 +63,7 @@
 	const save = async () => {
 		if (scenario.scenarioNameAndIdValidation()) {
 			modalStore.trigger(modal);
-			return 
+			return;
 		}
 		// console.log(scenario);
 		let response = await fetch(`/${data.moduleId}/save`, {
@@ -172,12 +172,7 @@
 				>
 				<label class="label">
 					<span>Output:</span>
-					<textarea
-						class="textarea rounded-none"
-						rows="19"
-						placeholder=">>>"
-						bind:value={output}
-					/>
+					<textarea class="textarea rounded-none" rows="19" placeholder=">>>" bind:value={output} />
 				</label>
 			</svelte:fragment>
 		</TabGroup>
