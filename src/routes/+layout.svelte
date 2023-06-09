@@ -5,8 +5,11 @@
 	import '@skeletonlabs/skeleton/styles/skeleton.css';
 	// Finally, your application's global stylesheet (sometimes labeled 'app.css')
 	import '../app.postcss';
-	import { AppShell, LightSwitch } from '@skeletonlabs/skeleton';
+	import { AppShell, LightSwitch, storeHighlightJs } from '@skeletonlabs/skeleton';
 	import type { PageData } from './$types';
+	
+	import hljs from 'highlight.js';
+	storeHighlightJs.set(hljs);
 
 	export let data: PageData;
 </script>
