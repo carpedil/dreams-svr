@@ -7,7 +7,7 @@ export async function POST(RequestEvent: any) {
 	const reqData = await request.json();
 	console.log('post data received:\n', reqData);
 
-	const message = await prisma.apiMessage.create({
+	const message = await prisma.ApiMessage.create({
 		data: {
 			FuncName: reqData.FuncName,
 			ApiName: reqData.ApiName,

@@ -38,22 +38,32 @@
 	};
 
 	const handleOldMessageChange: (e: any) => void = (evt) => {
+		if (scenario.funcNameAndIdValidation()) {
+			modalStore.trigger(modal);
+			evt.target.value = '';
+			return 
+		}
 		scenario.OldRawLogs = evt.target.value;
 		let oldmessages = scenario.extractMessages(scenario.OldRawLogs);
 		scenario.set_old_api_message(oldmessages);
-		// console.log(scenario);
+		// console.log('old:\n',scenario.OldApiMessages);
 	};
 	const handleNewMessageChange: (e: any) => void = (evt) => {
+		if (scenario.funcNameAndIdValidation()) {
+			modalStore.trigger(modal);
+			evt.target.value = '';
+			return 
+		}
 		scenario.NewRawLogs = evt.target.value;
 		let newmessages = scenario.extractMessages(scenario.NewRawLogs);
 		scenario.set_new_api_message(newmessages);
-		// console.log(scenario);
+		// console.log('new:\n',scenario.NewApiMessages);
 	};
 
 	const save = async () => {
-		if (scenario.IsInValid()) {
+		if (scenario.scenarioNameAndIdValidation()) {
 			modalStore.trigger(modal);
-			return;
+			return 
 		}
 		// console.log(scenario);
 		let response = await fetch(`/${data.moduleId}/save`, {
@@ -73,6 +83,7 @@
 		let mergedApiMessageList = [...scenario.OldApiMessages, ...scenario.NewApiMessages];
 		// console.log(mergedApiMessageList);
 		mergedApiMessageList.forEach(async (message: ApiMessage) => {
+			console.log(message);
 			let response = await fetch(`/${data.moduleId}/save/message`, {
 				method: 'POST',
 				body: JSON.stringify(message)
@@ -163,8 +174,8 @@
 					<span>Output:</span>
 					<textarea
 						class="textarea rounded-none"
-						rows="4"
-						placeholder="Lorem ipsum dolor sit amet consectetur adipisicing elit."
+						rows="19"
+						placeholder=">>>"
 						bind:value={output}
 					/>
 				</label>

@@ -65,14 +65,18 @@ export class ScenarioData {
 		return line_groups;
 	}
 
-	IsInValid(): this is invalidated {
-		if (this.Name === null || this.Name === undefined || this.Name === '') {
-			return true;
-		} else if (this.FuncId === null || this.FuncId === undefined || this.FuncId === 0) {
+	funcNameAndIdValidation(): this is invalidated {
+		if (this.FuncId === null || this.FuncId === undefined || this.FuncId === 0) {
 			return true;
 		} else if (this.FuncName === null || this.FuncName === undefined || this.FuncName === '') {
 			return true;
 		}
+		return false;
+	}
+	scenarioNameAndIdValidation(): this is invalidated {
+		if (this.Name === null || this.Name === undefined || this.Name === '') {
+			return true;
+		} 
 		return false;
 	}
 }
