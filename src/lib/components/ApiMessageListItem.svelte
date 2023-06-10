@@ -19,12 +19,14 @@
 			language="console"
 			code={msg.Sendto}
 			color="text-blue-400"
+			text="text-xl"
 			background="bg-slate-600"
 		/>
 		<CodeBlock
 			language="console"
 			code={msg.Received}
 			color="text-blue-400"
+			text="text-xl"
 			background="bg-slate-600"
 		/>
 		<input
@@ -33,14 +35,14 @@
 			bind:value={msg.Comment}
 			placeholder="Leave a comment if needed."
 		/>
-		<div class="flex flex-row pl-10 w-100% max-h-[400px]">
-			<div class="flex-1 list-decimal w-[50%]">
+		<div class="flex flex-row pl-10 w-100% max-h-[30vh]">
+			<div class="flex-1 list-decimal">
 				<h3 class="h3">Items:{msg.SendParams.length}</h3>
 				{#each msg.SendParams as param}
 					<li>{param}</li>
 				{/each}
 			</div>
-			<div class="flex-1 list-decimal w-[50%] break-all overflow-y-auto">
+			<div class="flex-1 list-decimal break-all overflow-y-auto hide-scrollbar">
 				<h3 class="h3">Items:{msg.ReceivedParams.length}</h3>
 				{#each msg.ReceivedParams as param}
 					<li>{param}</li>

@@ -2,12 +2,12 @@
 	import type { ApiMessage } from '$lib/scenario';
 	import { Accordion } from '@skeletonlabs/skeleton';
 	import ApiMessageListItem from './ApiMessageListItem.svelte';
-	export let height: string = '350px';
+	// export let height: string = '350px';
 	export let _OldApiMessages: ApiMessage[] = [];
 	export let _NewApiMessages: ApiMessage[] = [];
 </script>
 
-<div class="card flex flex-row justify-evenly h-[{height}] overflow-y-scroll">
+<div class="card flex flex-row justify-evenly h-auto overflow-y-scroll">
 	{#if _OldApiMessages.length != 0}
 		<div class="flex-1">
 			<Accordion>

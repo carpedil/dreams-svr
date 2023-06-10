@@ -1,5 +1,5 @@
 <script lang="ts">
-	import { Drawer, drawerStore } from '@skeletonlabs/skeleton';
+	import { Accordion, AccordionItem, CodeBlock, Drawer, drawerStore } from '@skeletonlabs/skeleton';
 	import type { DrawerSettings } from '@skeletonlabs/skeleton';
 	import { ApiMessage as ApiMessageData } from '$lib/scenario';
 	import type { ApiMessage as Api } from '@prisma/client';
@@ -40,7 +40,7 @@
 			bgDrawer: 'bg-purple-900 text-white',
 			bgBackdrop: 'bg-gradient-to-tr from-indigo-500/50 via-purple-500/50 to-pink-500/50',
 			width: 'w-[100vw]',
-			height: 'h-[80vh]',
+			height: 'h-[95vh] overflow-y-auto hide-scrollbar',
 			padding: 'p-4',
 			rounded: 'rounded-sm',
 			position: 'bottom',
@@ -55,7 +55,7 @@
 	});
 </script>
 
-<div class="card pl-[14vw] h-[93vh] w-auto overflow-y-auto hide-scrollbar">
+<div class="card pl-[14vw] h-[96vh] w-auto overflow-y-auto hide-scrollbar">
 	<div class="table-container">
 		<table class="table table-hover">
 			<thead>
@@ -100,14 +100,91 @@
 				<ApiMessageList _OldApiMessages={$selectedApiMessageList} />
 			</div>
 			<div class="flex flex-row p-2">
-				<input type="button" value="View" class="flex-1 bg-orange-600" on:click={view} />
+				<input type="button" value="Compare" class="flex-1 bg-orange-600" on:click={view} />
 				<input type="button" value="Clear" class="flex-1 bg-slate-600" on:click={clear} />
 			</div>
 		</div>
 		<Drawer>
-			<div class="flex-1">
-				<ApiMessageList _OldApiMessages={$drawerStore.meta} />
-			</div>
+			<Accordion>
+				<AccordionItem hover="hover:bg-primary-hover-token" open class="text-2xl">
+					<svelte:fragment slot="lead">
+						<span class="bg-green-500 h1 pr-2 pl-2 rounded-lg">/{$drawerStore.meta[0].ApiName}</span
+						>
+					</svelte:fragment>
+					<svelte:fragment slot="summary">
+						<h1 class="h1">HDR={$drawerStore.meta[0].HDR}</h1>
+					</svelte:fragment>
+					<svelte:fragment slot="content">
+						<CodeBlock
+							language="console"
+							code={$drawerStore.meta[0].Sendto}
+							color="variant-filled-secondary"
+							text="text-xl"
+						/>
+						<CodeBlock
+							language="console"
+							code={$drawerStore.meta[0].Received}
+							color="variant-filled-secondary"
+							text="text-xl"
+						/>
+
+						<CodeBlock
+							language="console"
+							code={$drawerStore.meta[1].Sendto}
+							color="text-white-400"
+							background="bg-slate-600"
+							text="text-xl"
+						/>
+						<CodeBlock
+							language="console"
+							code={$drawerStore.meta[1].Received}
+							color="text-white-400"
+							background="bg-slate-600"
+							text="text-xl"
+						/>
+						<div class="card flex flex-row w-100% justify-start h-[40vh]">
+							<div class="flex-1 p-5 variant-filled-secondary overflow-y-auto hide-scrollbar">
+								<div class="flex-1 list-decimal">
+									<h3 class="h3">Items:{$drawerStore.meta[0].SendParams.length}</h3>
+									{#each $drawerStore.meta[0].SendParams as param}
+										<li>{param}</li>
+									{/each}
+								</div>
+								<hr class="!border-t-4" />
+								<div class="flex-1 list-decimal break-all">
+									<h3 class="h3">Items:{$drawerStore.meta[0].ReceivedParams.length}</h3>
+									{#each $drawerStore.meta[0].ReceivedParams as param}
+										<li>{param}</li>
+									{/each}
+								</div>
+							</div>
+							<div class="flex-1 p-5 bg-slate-600 overflow-y-auto hide-scrollbar">
+								<div class="flex-1 list-decimal">
+									<h3 class="h3">Items:{$drawerStore.meta[1].SendParams.length}</h3>
+									{#each $drawerStore.meta[1].SendParams as param}
+										<li>{param}</li>
+									{/each}
+								</div>
+								<hr class="!border-t-4" />
+								<div class="flex-1 list-decimal break-all">
+									<h3 class="h3">Items:{$drawerStore.meta[1].ReceivedParams.length}</h3>
+									{#each $drawerStore.meta[1].ReceivedParams as param}
+										<li>{param}</li>
+									{/each}
+								</div>
+							</div>
+						</div>
+						<blockquote class="blockquote h2">
+							*注意⚠️: 参数列表解析可能存在一定偏差,请仔细对比发送和接受的消息原文 <button
+								class="btn variant-filled-secondary rounded-xl float-right pl-10 pr-10"
+								on:click={() => {
+									drawerStore.close();
+								}}>CLOSE(ESC)</button
+							>
+						</blockquote>
+					</svelte:fragment>
+				</AccordionItem>
+			</Accordion>
 		</Drawer>
 	{/if}
 </div>

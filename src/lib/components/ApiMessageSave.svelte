@@ -90,7 +90,7 @@
 	};
 </script>
 
-<div class="flex justify-start pl-[14vw] h-[93vh] w-auto overflow-y-auto hide-scrollbar">
+<div class="flex justify-start pl-[14vw] h-[96vh] w-auto overflow-y-auto hide-scrollbar">
 	<TabGroup
 		justify="justify-start"
 		active="variant-filled-secondary"
@@ -134,10 +134,12 @@
 					placeholder="Enter the scenario In which the current log file operation is generated, such as opening the Job In function interface and clicking the drop-down list."
 				/>
 			</label>
-			<ApiMessageList
-				_OldApiMessages={scenario.OldApiMessages}
-				_NewApiMessages={scenario.NewApiMessages}
-			/>
+			<div class="h-[55vh] overflow-y-auto hide-scrollbar">
+				<ApiMessageList
+					_OldApiMessages={scenario.OldApiMessages}
+					_NewApiMessages={scenario.NewApiMessages}
+				/>
+			</div>
 			<label class="label flex flex-row items-center">
 				<input
 					class="input rounded-none"
@@ -150,7 +152,7 @@
 			<Modal />
 
 			<label class="label">
-				<textarea class="textarea rounded-none" rows="19" placeholder=">>>" bind:value={output} />
+				<textarea class="textarea rounded-none" rows="15" placeholder=">>>" bind:value={output} />
 			</label>
 		</svelte:fragment>
 	</TabGroup>

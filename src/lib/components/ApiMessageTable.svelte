@@ -15,7 +15,7 @@
 </script>
 
 <div class="table-container">
-	<table class="table table-hover">
+	<table class="table table-hover table-interactive">
 		<thead>
 			<tr>
 				<th>#</th>
@@ -24,7 +24,6 @@
 				<th>Platform</th>
 				<th>SendParams Count</th>
 				<th>ReceivedParams Count</th>
-				<th>Operation</th>
 			</tr>
 		</thead>
 		<tbody>
@@ -34,7 +33,7 @@
 						<span class="badge-icon variant-filled-primary mr-2">{apiMessage.Seq}</span>
 					</td>
 					<td>
-						<span class="text-sm bg-secondary-500 pl-2 pr-2 pt-1 pb-1 rounded-md"
+						<span class="text-sm bg-secondary-500 text-white pl-2 pr-2 pt-1 pb-1 rounded-md"
 							>/{apiMessage.ApiName}</span
 						>
 					</td>
@@ -46,7 +45,6 @@
 					</td>
 					<td class=" text-center">{apiMessage.SendParams.length}</td>
 					<td class="text-center">{apiMessage.ReceivedParams.length}</td>
-					<td class="text-center"><input class="checkbox" type="checkbox" /></td>
 				</tr>
 			{/each}
 		</tbody>
