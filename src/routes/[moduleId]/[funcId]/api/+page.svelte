@@ -1,7 +1,12 @@
 <script lang="ts">
-	import ApiMessageList from '$lib/components/ApiMessageList.svelte';
+	import { Drawer, drawerStore } from '@skeletonlabs/skeleton';
+	import type { DrawerSettings } from '@skeletonlabs/skeleton';
 	import { ApiMessage as ApiMessageData } from '$lib/scenario';
 	import type { ApiMessage as Api } from '@prisma/client';
+	import { onMount } from 'svelte';
+	import { showable, selectedApiMessageList } from '$lib/stores';
+	import ApiMessageTable from '$lib/components/ApiMessageTable.svelte';
+	import ApiMessageList from '$lib/components/ApiMessageList.svelte';
 
 	export let data: any;
 	let selectedScenarioMessageSet: Api[] = [];
@@ -23,9 +28,34 @@
 		});
 		console.log(_OldApiMessages, _NewApiMessages);
 	};
+
+	const clear = () => {
+		selectedApiMessageList.update((list) => (list = []));
+	};
+
+	const view = () => {
+		const drawerSettings: DrawerSettings = {
+			id: 'example-3',
+			// Provide your property overrides:
+			bgDrawer: 'bg-purple-900 text-white',
+			bgBackdrop: 'bg-gradient-to-tr from-indigo-500/50 via-purple-500/50 to-pink-500/50',
+			width: 'w-[100vw]',
+			height: 'h-[80vh]',
+			padding: 'p-4',
+			rounded: 'rounded-sm',
+			position: 'bottom',
+			meta: $selectedApiMessageList
+		};
+
+		drawerStore.open(drawerSettings);
+	};
+
+	onMount(() => {
+		showable.update((s) => (s = false));
+	});
 </script>
 
-<div class="card pl-[14vw]">
+<div class="card pl-[14vw] h-[93vh] w-auto overflow-y-auto hide-scrollbar">
 	<div class="table-container">
 		<table class="table table-hover">
 			<thead>
@@ -56,5 +86,28 @@
 			</tfoot>
 		</table>
 	</div>
-	<ApiMessageList {_OldApiMessages} {_NewApiMessages} viewHeight={65} />
+	<div class="flex flex-row">
+		<div class="flex-1">
+			<ApiMessageTable ApiMessagesList={_OldApiMessages} />
+		</div>
+		<div class="flex-1">
+			<ApiMessageTable ApiMessagesList={_NewApiMessages} />
+		</div>
+	</div>
+	{#if $selectedApiMessageList.length !== 0}
+		<div class="flex flex-col justify-stretch">
+			<div class="flex-1">
+				<ApiMessageList _OldApiMessages={$selectedApiMessageList} />
+			</div>
+			<div class="flex flex-row p-2">
+				<input type="button" value="View" class="flex-1 bg-orange-600" on:click={view} />
+				<input type="button" value="Clear" class="flex-1 bg-slate-600" on:click={clear} />
+			</div>
+		</div>
+		<Drawer>
+			<div class="flex-1">
+				<ApiMessageList _OldApiMessages={$drawerStore.meta} />
+			</div>
+		</Drawer>
+	{/if}
 </div>

@@ -9,6 +9,7 @@ export async function POST(RequestEvent: any) {
 
 	const message = await prisma.ApiMessage.create({
 		data: {
+			Seq: reqData.Seq,
 			FuncName: reqData.FuncName,
 			ApiName: reqData.ApiName,
 			Platform: reqData.Platform,

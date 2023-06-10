@@ -18,7 +18,7 @@ export const load = async (serverLoadEvent: { params: any }) => {
 				include: {
 					messages: {
 						orderBy: {
-							CreateAt: 'asc'
+							Seq: 'asc'
 						}
 					}
 				},

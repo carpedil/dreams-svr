@@ -44,6 +44,7 @@ model Scenario {
 
 model ApiMessage {
   Id Int @id @unique @default(autoincrement())
+  Seq Int
   FuncName String
   ApiName String
   Platform String

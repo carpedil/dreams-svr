@@ -22,9 +22,10 @@ export class ScenarioData {
 	}
 
 	extractMessages(logs: string): ApiMessage[] {
+		const newStr = optimizeLineBreakerAndWhiteSpace(logs);
 		const regex = /(SendMessage|ReceiveMsg|Send Data|Received Data)/;
-		const pattern = getDatePattern(logs);
-		let formated = formateStr(optimizeLineBreakerAndWhiteSpace(logs), pattern);
+		const pattern = getDatePattern(newStr);
+		let formated = formateStr(newStr, pattern);
 
 		const result = [];
 		const lines = formated.split('\n');
@@ -36,6 +37,7 @@ export class ScenarioData {
 		}
 		// console.log('>>\n',result)
 		const line_groups: ApiMessage[] = [];
+		let seq = 1;
 		for (let i = 0; i < result.length; i++) {
 			let apiMessage = new ApiMessage();
 			apiMessage.FuncName = this.FuncName;
@@ -59,6 +61,7 @@ export class ScenarioData {
 				apiMessage.extractParams(apiMessage.Sendto, apiMessage.Received);
 				apiMessage.set_api_name(apiMessage.SendParams[0]);
 				apiMessage.set_hdr(apiMessage.SendParams[1]);
+				apiMessage.Seq = seq++;
 				line_groups.push(apiMessage);
 			}
 		}
@@ -83,6 +86,7 @@ export class ScenarioData {
 }
 
 export class ApiMessage {
+	Seq!: number;
 	FuncName!: string;
 	ApiName!: string;
 	Platform!: string;
@@ -103,7 +107,7 @@ export class ApiMessage {
 		let message = hdr.split(',')[0];
 		let regex = /HDR=([^ ]*)/;
 		let match = message.match(regex);
-
+		// console.log(match);
 		if (match) {
 			let value = match[1];
 			this.HDR = value;
@@ -117,6 +121,7 @@ export class ApiMessage {
 
 	static into(apiMessage: Api): ApiMessage {
 		let that = new ApiMessage();
+		that.Seq = apiMessage.Seq;
 		that.FuncName = apiMessage.FuncName;
 		that.ApiName = apiMessage.ApiName;
 		that.Platform = apiMessage.Platform;

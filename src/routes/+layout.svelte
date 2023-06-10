@@ -16,11 +16,11 @@
 
 <AppShell>
 	<svelte:fragment slot="header">
-		<ol class="flex flex-row justify-evenly p-10 text-2xl bg-blue-500">
+		<ol class="card flex flex-row justify-evenly p-5 text-sm">
 			<span>{data.title}</span>
 			<li><a href="/">Home</a></li>
 			{#each data.modules as module}
-				<li><a href={module.Uri}>{module.Name}</a></li>
+				<li><a href={module.Uri}>{module.Name.toUpperCase()}</a></li>
 			{/each}
 			<LightSwitch />
 		</ol>

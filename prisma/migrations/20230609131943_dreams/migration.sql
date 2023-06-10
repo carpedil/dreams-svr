@@ -31,6 +31,7 @@ CREATE TABLE "Scenario" (
 -- CreateTable
 CREATE TABLE "ApiMessage" (
     "Id" INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT,
+    "Seq" INTEGER NOT NULL,
     "FuncName" TEXT NOT NULL,
     "ApiName" TEXT NOT NULL,
     "Platform" TEXT NOT NULL,
