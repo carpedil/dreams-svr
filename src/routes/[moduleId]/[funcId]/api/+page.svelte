@@ -7,6 +7,8 @@
 	import { showable, selectedApiMessageList } from '$lib/stores';
 	import ApiMessageTable from '$lib/components/ApiMessageTable.svelte';
 	import ApiMessageList from '$lib/components/ApiMessageList.svelte';
+	import ParameterBlockTwins from '$lib/components/ParameterBlockTwins.svelte';
+	import MessageWarpper from '$lib/components/MessageWarpper.svelte';
 
 	export let data: any;
 	let selectedScenarioMessageSet: Api[] = [];
@@ -115,65 +117,24 @@
 						<h1 class="h1">HDR={$drawerStore.meta[0].HDR}</h1>
 					</svelte:fragment>
 					<svelte:fragment slot="content">
-						<CodeBlock
-							language="console"
-							code={$drawerStore.meta[0].Sendto}
-							color="variant-filled-secondary"
-							text="text-xl"
+						<MessageWarpper
+							message={$drawerStore.meta[0].Sendto}
+							color={'variant-filled-secondary'}
 						/>
-						<CodeBlock
-							language="console"
-							code={$drawerStore.meta[0].Received}
-							color="variant-filled-secondary"
-							text="text-xl"
+						<MessageWarpper
+							message={$drawerStore.meta[0].Received}
+							color={'variant-filled-secondary'}
 						/>
 
-						<CodeBlock
-							language="console"
-							code={$drawerStore.meta[1].Sendto}
-							color="text-white-400"
-							background="bg-slate-600"
-							text="text-xl"
+						<MessageWarpper
+							message={$drawerStore.meta[1].Sendto}
+							color={'variant-filled-surface'}
 						/>
-						<CodeBlock
-							language="console"
-							code={$drawerStore.meta[1].Received}
-							color="text-white-400"
-							background="bg-slate-600"
-							text="text-xl"
+						<MessageWarpper
+							message={$drawerStore.meta[1].Received}
+							color={'variant-filled-surface'}
 						/>
-						<div class="card flex flex-row w-100% justify-start h-[40vh]">
-							<div class="flex-1 p-5 variant-filled-secondary overflow-y-auto hide-scrollbar">
-								<div class="flex-1 list-decimal">
-									<h3 class="h3">Items:{$drawerStore.meta[0].SendParams.length}</h3>
-									{#each $drawerStore.meta[0].SendParams as param}
-										<li>{param}</li>
-									{/each}
-								</div>
-								<hr class="!border-t-4" />
-								<div class="flex-1 list-decimal break-all">
-									<h3 class="h3">Items:{$drawerStore.meta[0].ReceivedParams.length}</h3>
-									{#each $drawerStore.meta[0].ReceivedParams as param}
-										<li>{param}</li>
-									{/each}
-								</div>
-							</div>
-							<div class="flex-1 p-5 bg-slate-600 overflow-y-auto hide-scrollbar">
-								<div class="flex-1 list-decimal">
-									<h3 class="h3">Items:{$drawerStore.meta[1].SendParams.length}</h3>
-									{#each $drawerStore.meta[1].SendParams as param}
-										<li>{param}</li>
-									{/each}
-								</div>
-								<hr class="!border-t-4" />
-								<div class="flex-1 list-decimal break-all">
-									<h3 class="h3">Items:{$drawerStore.meta[1].ReceivedParams.length}</h3>
-									{#each $drawerStore.meta[1].ReceivedParams as param}
-										<li>{param}</li>
-									{/each}
-								</div>
-							</div>
-						</div>
+						<ParameterBlockTwins meta0={$drawerStore.meta[0]} meta1={$drawerStore.meta[1]} />
 						<blockquote class="blockquote h2">
 							*注意⚠️: 参数列表解析可能存在一定偏差,请仔细对比发送和接受的消息原文 <button
 								class="btn variant-filled-secondary rounded-xl float-right pl-10 pr-10"
