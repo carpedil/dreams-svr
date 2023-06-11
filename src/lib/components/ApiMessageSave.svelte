@@ -3,7 +3,6 @@
 
 	import { ApiMessage, ScenarioData } from '$lib/scenario';
 	import ApiMessageList from '$lib/components/ApiMessageList.svelte';
-	import type { PageData } from '../../routes/$types';
 	import type { Functions } from '@prisma/client';
 	export let functions: Functions[];
 	export let moduleId: string;

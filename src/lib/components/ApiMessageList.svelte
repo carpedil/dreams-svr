@@ -2,7 +2,6 @@
 	import type { ApiMessage } from '$lib/scenario';
 	import { Accordion } from '@skeletonlabs/skeleton';
 	import ApiMessageListItem from './ApiMessageListItem.svelte';
-	// export let height: string = '350px';
 	export let _OldApiMessages: ApiMessage[] = [];
 	export let _NewApiMessages: ApiMessage[] = [];
 </script>

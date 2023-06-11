@@ -1,5 +1,4 @@
 <script lang="ts">
-	import { drawerStore } from '@skeletonlabs/skeleton';
 	import ParameterList from './ParameterList.svelte';
 	import type { ApiMessage } from '$lib/scenario';
 	export let meta0: ApiMessage;

@@ -1,11 +1,31 @@
 <script lang="ts">
 	import type { ApiMessage } from '$lib/scenario';
 	import { selectedApiMessageList } from '$lib/stores';
+	import { Toast, toastStore } from '@skeletonlabs/skeleton';
+	import type { ToastSettings } from '@skeletonlabs/skeleton/dist/utilities/Toast/types';
 	export let ApiMessagesList: ApiMessage[];
 
 	const handleClick = (apiMessage: ApiMessage): any => {
+		if ($selectedApiMessageList.length >= 2) {
+			const t: ToastSettings = {
+				message: 'Exceeded the maximum size of The Compare List, Max: 2 ApiMessages ',
+				// Provide any utility or variant background style:
+				background: 'variant-filled-warning'
+			};
+			toastStore.trigger(t);
+			return;
+		}
+
 		selectedApiMessageList.update((list) => {
-			if (list.includes(apiMessage)) return list;
+			if (list.includes(apiMessage)) {
+				const t: ToastSettings = {
+					message: 'ApiMessage Duplicated !',
+					// Provide any utility or variant background style:
+					background: 'variant-filled-warning'
+				};
+				toastStore.trigger(t);
+				return list;
+			}
 			return (list = [...list, apiMessage]);
 		});
 	};
@@ -49,4 +69,5 @@
 			{/each}
 		</tbody>
 	</table>
+	<Toast position="t" rounded="rounded-md" />
 </div>

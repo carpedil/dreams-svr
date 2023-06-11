@@ -1,5 +1,13 @@
 <script lang="ts">
-	import { Accordion, AccordionItem, CodeBlock, Drawer, drawerStore } from '@skeletonlabs/skeleton';
+	import {
+		Accordion,
+		AccordionItem,
+		Drawer,
+		Toast,
+		drawerStore,
+		toastStore,
+		type ToastSettings
+	} from '@skeletonlabs/skeleton';
 	import type { DrawerSettings } from '@skeletonlabs/skeleton';
 	import { ApiMessage as ApiMessageData } from '$lib/scenario';
 	import type { ApiMessage as Api } from '@prisma/client';
@@ -36,6 +44,16 @@
 	};
 
 	const view = () => {
+		if ($selectedApiMessageList.length < 2) {
+			const t: ToastSettings = {
+				message: 'At least 2 ApiMessage can be compared ,try to select one more ApiMessage ! ',
+				// Provide any utility or variant background style:
+				background: 'variant-filled-warning'
+			};
+			toastStore.trigger(t);
+			return;
+		}
+
 		const drawerSettings: DrawerSettings = {
 			id: 'example-3',
 			// Provide your property overrides:
@@ -137,7 +155,7 @@
 						<ParameterBlockTwins meta0={$drawerStore.meta[0]} meta1={$drawerStore.meta[1]} />
 						<blockquote class="blockquote h2">
 							*注意⚠️: 参数列表解析可能存在一定偏差,请仔细对比发送和接受的消息原文 <button
-								class="btn variant-filled-secondary rounded-xl float-right pl-10 pr-10"
+								class="btn variant-filled-secondary rounded-xl float-right pl-10 pr-1"
 								on:click={() => {
 									drawerStore.close();
 								}}>CLOSE(ESC)</button
@@ -147,5 +165,6 @@
 				</AccordionItem>
 			</Accordion>
 		</Drawer>
+		<Toast position="t" rounded="rounded-md" />
 	{/if}
 </div>
