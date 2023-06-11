@@ -9,11 +9,14 @@
 	import type { PageData } from './$types';
 
 	import hljs from 'highlight.js';
+	import { page } from '$app/stores';
 	storeHighlightJs.set(hljs);
 
 	export let data: PageData;
 </script>
-
+<svelte:head>
+    <title>{$page.data.title || "DREAMS Server Api Test bundles"}</title>
+</svelte:head>
 <AppShell>
 	<svelte:fragment slot="header">
 		<ol class="card flex flex-row justify-evenly p-5 text-sm">
