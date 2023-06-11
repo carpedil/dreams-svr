@@ -7,7 +7,7 @@ export async function POST(RequestEvent: any) {
 	const reqData = await request.json();
 	console.log('post data received:\n', reqData);
 
-	const scenario = await prisma.Scenario.create({
+	const scenario = await prisma.scenario.create({
 		data: {
 			Name: reqData.Name,
 			FuncName: reqData.FuncName,
@@ -23,5 +23,12 @@ export async function POST(RequestEvent: any) {
 	return json({
 		Id: scenario.Id,
 		message: `created new scenario \n ${jsonStr}`
+	});
+}
+
+export async function GET(RequestEvent: any) {
+	return json({
+		code: 404,
+		message: `Not Found`
 	});
 }

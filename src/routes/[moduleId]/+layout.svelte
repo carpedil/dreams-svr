@@ -10,7 +10,7 @@
 	const updateStore = () => {
 		showable.update((s) => (s = true));
 	};
-	onMount(()=>{
+	onMount(() => {
 		updateStore();
 	});
 	$: classesActive = (href: string) => (href === $page.url.pathname ? '!bg-primary-500' : '');

@@ -4,10 +4,11 @@ const prisma = new PrismaClient();
 
 export const load = async (serverLoadEvent: { params: any }) => {
 	const { params } = serverLoadEvent;
+	// console.log(params);
 	const { funcId, moduleId } = params;
-	console.log(moduleId, funcId);
+	// console.log(moduleId, funcId);
 
-	const func = await prisma.Functions.findFirst({
+	const func = await prisma.functions.findFirst({
 		where: {
 			Uri: {
 				equals: `/${moduleId}/${funcId}`

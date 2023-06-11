@@ -14,8 +14,9 @@
 
 	export let data: PageData;
 </script>
+
 <svelte:head>
-    <title>{$page.data.title || "DREAMS Server Api Test bundles"}</title>
+	<title>{$page.data.title || 'DREAMS Server Api Test bundles'}</title>
 </svelte:head>
 <AppShell>
 	<svelte:fragment slot="header">

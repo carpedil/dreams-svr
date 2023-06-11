@@ -4,27 +4,22 @@ const prisma = new PrismaClient();
 
 export const load = async (serverLoadEvent: { params: any }) => {
 	const { params } = serverLoadEvent;
-	// console.log(params);
+	console.log(params);
+	const { moduleId, funcId } = params;
+	const uri = `/${moduleId}/${funcId}`;
 
-	const { moduleId } = params;
-
-	const functions = await prisma.functions.findMany({
+	const func = await prisma.functions.findFirst({
 		where: {
-			ModuleUri: {
-				equals: `/${moduleId}`
+			Uri: {
+				equals: uri
 			}
 		}
 	});
-
-	if (functions.length === 0) {
+	if (func === null) {
 		throw error(404, {
 			message: 'Not found'
 		});
 	}
 
-	// console.log(functions);
-	return {
-		moduleId,
-		functions
-	};
+	return {};
 };
