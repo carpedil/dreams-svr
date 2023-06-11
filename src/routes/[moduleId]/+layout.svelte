@@ -4,12 +4,15 @@
 	import { page } from '$app/stores';
 	import { showable } from '$lib/stores';
 	import ApiMessageSave from '$lib/components/ApiMessageSave.svelte';
+	import { onMount } from 'svelte';
 	export let data: PageData;
 
 	const updateStore = () => {
 		showable.update((s) => (s = true));
 	};
-
+	onMount(()=>{
+		updateStore();
+	});
 	$: classesActive = (href: string) => (href === $page.url.pathname ? '!bg-primary-500' : '');
 </script>
 
