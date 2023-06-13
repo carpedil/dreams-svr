@@ -5,7 +5,7 @@ const prisma = new PrismaClient();
 export async function POST(RequestEvent: any) {
 	const { request } = RequestEvent;
 	const reqData = await request.json();
-	console.log('post data received:\n', reqData);
+	// console.log('post data received:\n', reqData);
 
 	const max_in_db = await prisma.$queryRaw<
 		Array<{ no: number }>
@@ -17,7 +17,8 @@ export async function POST(RequestEvent: any) {
 		return curr_max;
 	}, {} as { [key: string]: number });
 
-	// +1 as new scenario number for new scenario record
+	// +1 as new scenario number for new scenario record 
+	// if max_in_db retrun null, then curr_max.number counted from 1;
 	curr_max.number += 1;
 
 	const scenario = await prisma.scenario.create({
