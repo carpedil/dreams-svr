@@ -25,10 +25,3 @@ export async function POST(RequestEvent: any) {
 		message: `created new scenario \n ${jsonStr}`
 	});
 }
-
-export async function GET(RequestEvent: any) {
-	return json({
-		code: 404,
-		message: `Not Found`
-	});
-}
