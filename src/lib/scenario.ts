@@ -137,8 +137,8 @@ export class ApiMessage {
 	}
 
 	extractParams(sendto: string, received: string) {
-		console.log(sendto,received)
+		console.log(sendto, received);
 		this.SendParams = extract(sendto);
-		this.ReceivedParams = received ? extract(received): [];
+		this.ReceivedParams = received ? extract(received) : [];
 	}
 }

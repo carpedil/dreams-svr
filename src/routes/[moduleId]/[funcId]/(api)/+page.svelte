@@ -88,7 +88,7 @@
 				</tr>
 			</thead>
 			<tbody>
-				{#each data.func.Scenarios as row, i}
+				{#each data.func.Scenarios as row}
 					<tr on:click={handleClick(row)}>
 						<td>{row.No}</td>
 						<td>{row.FuncName}</td>

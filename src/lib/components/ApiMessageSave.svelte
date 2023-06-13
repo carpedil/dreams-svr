@@ -1,5 +1,14 @@
 <script lang="ts">
-	import { TabGroup, Tab, Modal, modalStore, type ModalSettings, Toast, toastStore, type ToastSettings } from '@skeletonlabs/skeleton';
+	import {
+		TabGroup,
+		Tab,
+		Modal,
+		modalStore,
+		type ModalSettings,
+		Toast,
+		toastStore,
+		type ToastSettings
+	} from '@skeletonlabs/skeleton';
 
 	import { ApiMessage, ScenarioData } from '$lib/scenario';
 	import ApiMessageList from '$lib/components/ApiMessageList.svelte';
@@ -59,20 +68,20 @@
 			modalStore.trigger(modal);
 			return;
 		}
-		// clear output messages firstly 
+		// clear output messages firstly
 		output = '';
-		let resp = await fetch(`/${moduleId}/save/${scenario.Name}`,{
-			method:'GET'
-		})
+		let resp = await fetch(`/${moduleId}/save/${scenario.Name}`, {
+			method: 'GET'
+		});
 		const isExisted = await resp.json();
 		if (isExisted) {
 			const t: ToastSettings = {
-					message: 'Current Scenario is Already Saved in DB !',
-					// Provide any utility or variant background style:
-					background: 'variant-filled-warning'
-				};
+				message: 'Current Scenario is Already Saved in DB !',
+				// Provide any utility or variant background style:
+				background: 'variant-filled-warning'
+			};
 			toastStore.trigger(t);
-			return
+			return;
 		}
 		// console.log(scenario);
 		let response = await fetch(`/${moduleId}/save`, {
@@ -103,9 +112,9 @@
 		});
 	};
 
-	const reset = ()=> {
-		scenario = new ScenarioData()
-	}
+	const reset = () => {
+		scenario = new ScenarioData();
+	};
 </script>
 
 <div class="flex justify-start pl-[14vw] h-[96vh] w-auto overflow-y-auto hide-scrollbar">
@@ -130,7 +139,7 @@
 					<textarea
 						class="input rounded-none hide-scrollbar text-sm"
 						rows="4"
-						value={scenario.OldRawLogs ? scenario.OldRawLogs: ''}
+						value={scenario.OldRawLogs ? scenario.OldRawLogs : ''}
 						placeholder="Enter the log information about using the old server. eg.>>> 10.9.64.28"
 						on:change={handleOldMessageChange}
 					/>
@@ -139,14 +148,18 @@
 					<textarea
 						class="input rounded-none hide-scrollbar text-sm"
 						rows="4"
-						value={scenario.NewRawLogs ? scenario.NewRawLogs: ''}
+						value={scenario.NewRawLogs ? scenario.NewRawLogs : ''}
 						placeholder="Enter the log information about using the new server. eg.>>> 10.162.138.83"
 						on:change={handleNewMessageChange}
 					/>
 				</label>
 				<div class="flex flex-row h-[6.5vh]">
-					<button class="btn-sm variant-filled-secondary rounded-md w-[8vw]" on:click={save}>Save</button>
-					<button class="btn-sm variant-filled-surface rounded-md w-[8vw] " on:click={reset} >Reset</button>
+					<button class="btn-sm variant-filled-secondary rounded-md w-[8vw]" on:click={save}
+						>Save</button
+					>
+					<button class="btn-sm variant-filled-surface rounded-md w-[8vw]" on:click={reset}
+						>Reset</button
+					>
 				</div>
 			</div>
 			<label class="label flex flex-row items-center">
@@ -177,7 +190,7 @@
 			<label class="label">
 				<textarea class="textarea rounded-none" rows="15" placeholder=">>>" bind:value={output} />
 			</label>
-		<Toast position="t" rounded="rounded-md" />
+			<Toast position="t" rounded="rounded-md" />
 		</svelte:fragment>
 	</TabGroup>
 </div>
