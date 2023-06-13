@@ -24,7 +24,7 @@ export const load = async (serverLoadEvent: { params: any }) => {
 					}
 				},
 				orderBy: {
-					Id: 'asc'
+					No: 'asc'
 				}
 			}
 		}

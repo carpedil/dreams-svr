@@ -90,7 +90,7 @@
 			<tbody>
 				{#each data.func.Scenarios as row, i}
 					<tr on:click={handleClick(row)}>
-						<td>{row.Id}</td>
+						<td>{row.No}</td>
 						<td>{row.FuncName}</td>
 						<td>{row.Name}</td>
 						<td>{row.Comment}</td>
