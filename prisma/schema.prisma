@@ -30,6 +30,7 @@ model Functions {
 model Scenario {
   Id Int @id @unique @default(autoincrement())
   Name String
+  No Int
   FuncName String
   OldRawLogs String?
   NewRawLogs String?
