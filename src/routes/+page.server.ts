@@ -3,8 +3,7 @@ import { PrismaClient } from '@prisma/client';
 const prisma = new PrismaClient();
 
 export const load = async () => {
-
-	const toObject = (data: any) => {
+	const convertBigInt = (data: any) => {
 		return JSON.parse(
 			JSON.stringify(data, (_key, value) =>
 				typeof value === 'bigint'
@@ -13,28 +12,67 @@ export const load = async () => {
 			)
 		);
 	};
-    
-    let query_api_name_count = await prisma.$queryRaw<
-        Array<{ total: number; distinctedTotal: number }>
-    >`SELECT COUNT(ApiName) total,COUNT(DISTINCT ApiName) distinctedTotal from ApiMessage;`;
 
-	let query_api_name_count_by_hdr = await prisma.$queryRaw<
-		Array<{ HDR: string; distinctedApiCount: number; totalApiCount: number }>
-	>`SELECT distinct HDR , count(distinct ApiName) as distinctedApiCount,COUNT(ApiName) as totalApiCount FROM ApiMessage group by HDR;`;
+	const toObject = (arr: any) => {
+		let data = convertBigInt(arr);
+		return data.reduce((obj: { [x: string]: any }, m: { total: any }) => {
+			obj['all'] = m.total;
+			return obj;
+		}, {} as { [key: string]: number });
+	};
 
-	let query_api_name_count_by_funcName = await prisma.$queryRaw<
-		Array<{ HDR: string; distinctedApiCount: number; totalApiCount: number }>
-	>`SELECT distinct FuncName , count(distinct ApiName) as distinctedApiCount,COUNT(ApiName) as totalApiCount FROM ApiMessage group by FuncName;`;
+	let total = await prisma.$queryRaw<
+		Array<{ total: number }>
+	>`SELECT COUNT(ApiName) total from ApiMessage;`;
 
-    query_api_name_count= toObject(query_api_name_count);
-	query_api_name_count_by_hdr = toObject(query_api_name_count_by_hdr);
-	query_api_name_count_by_funcName = toObject(query_api_name_count_by_funcName);
+	let inner = await prisma.$queryRaw<
+		Array<{ name: string; value: number }>
+	>`SELECT distinct HDR as name , count(distinct ApiName) as value FROM ApiMessage group by HDR;`;
+
+	let outter = await prisma.$queryRaw<
+		Array<{ name: string; value: number; total: number }>
+	>`SELECT distinct FuncName as name , count(distinct ApiName) as value,count(ApiName) total  FROM ApiMessage group by FuncName;`;
+
+	total = convertBigInt(total);
+	inner = convertBigInt(inner);
+	outter = convertBigInt(outter);
+	// console.log(total,'\n');
+	// console.log(inner,'\n');
+	// console.log(outter,'\n');
+
+	const mapped_total = total.reduce((obj, m) => {
+		obj['all'] = m.total;
+		return obj;
+	}, {} as { [key: string]: number });
+
+	console.log(mapped_total);
+
+	const mapped_inner = inner.reduce((obj, m) => {
+		obj[m.name] = m.value;
+		return obj;
+	}, {} as { [key: string]: number });
+
+	console.log(mapped_inner);
+
+	const mapped_outter = outter.reduce((obj, m) => {
+		obj[m.name] = m.total;
+		return obj;
+	}, {} as { [key: string]: number });
+
+	console.log(mapped_outter);
 
 	return {
 		data: {
-            query_api_name_count,
-			query_api_name_count_by_hdr,
-			query_api_name_count_by_funcName
+			builderJson: {
+				all: mapped_total.all,
+				charts: mapped_inner,
+				componnets: mapped_outter
+			},
+			downloadJson: mapped_inner,
+			themeJson: mapped_outter,
+			total,
+			inner: mapped_inner,
+			outter: mapped_outter
 		}
 	};
 };

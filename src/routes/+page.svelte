@@ -1,16 +1,9 @@
 <script lang="ts">
-	import { CodeBlock } from '@skeletonlabs/skeleton';
 	import type { PageData } from './$types';
+	import ChartView from '$lib/components/ChartView.svelte';
 	export let data: PageData;
-
 </script>
 
-<div class="card  p-1 overflow-y-auto hide-scrollbar">
-	<CodeBlock
-		language="json"
-		code={JSON.stringify(data.data, null, 4)}
-		text="text-2xl"
-		class="w-full h-[96vh] bg-transparent"
-		color=""
-	/>
+<div class="overflow-y-auto hide-scrollbar">
+	<ChartView data={data.data} />
 </div>
