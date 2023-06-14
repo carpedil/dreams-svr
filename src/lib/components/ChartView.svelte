@@ -62,6 +62,15 @@
 		ctx.fillText(waterMarkText, 0, 0);
 
 		option = {
+			aria: {
+				show: true,
+				decal:{
+					show:true,
+					decals:{
+						symbol: 'triangle'
+					}
+				}
+			},
 			backgroundColor: {
 				type: 'pattern',
 				image: canvas,
@@ -73,7 +82,10 @@
 					text: 'ApiMessages',
 					subtext: '总计 ' + builderJson.all,
 					left: '25%',
-					textAlign: 'center'
+					textAlign: 'center',
+					textStyle: {
+						color: '#4A65BF'
+					}
 				},
 				{
 					text: 'By HDRs',
@@ -83,7 +95,10 @@
 							return all + downloadJson[key];
 						}, 0),
 					left: '75%',
-					textAlign: 'center'
+					textAlign: 'center',
+					textStyle: {
+						color: '#4A65BF'
+					}
 				},
 				{
 					text: 'By Functions',
@@ -94,16 +109,20 @@
 						}, 0),
 					left: '75%',
 					top: '50%',
-					textAlign: 'center'
+					textAlign: 'center',
+					textStyle: {
+						color: '#4A65BF'
+					}
 				}
 			],
 			grid: [
 				{
 					top: 50,
-					width: '50%',
+					width: '48.3%',
 					bottom: '45%',
-					left: 10,
-					containLabel: true
+					height: '20%',
+					left: 37,
+					containLabel: true,
 				},
 				{
 					top: '55%',
@@ -136,7 +155,8 @@
 					data: Object.keys(builderJson.charts),
 					axisLabel: {
 						interval: 0,
-						rotate: 30
+						rotate: 30,
+						color:'gray'
 					},
 					splitLine: {
 						show: false
@@ -148,7 +168,8 @@
 					data: Object.keys(builderJson.components),
 					axisLabel: {
 						interval: 0,
-						rotate: 30
+						rotate: 30,
+						color:'gray'
 					},
 					splitLine: {
 						show: false
@@ -173,7 +194,7 @@
 					stack: 'chart',
 					silent: true,
 					itemStyle: {
-						color: '#eee'
+						color: 'lightgray'
 					},
 					data: Object.keys(builderJson.charts).map(function (key) {
 						return builderJson.all - builderJson.charts[key];
@@ -187,7 +208,7 @@
 					z: 3,
 					label: {
 						position: 'right',
-						show: true
+						show: true,
 					},
 					data: Object.keys(builderJson.components).map(function (key) {
 						return builderJson.components[key];
@@ -200,7 +221,7 @@
 					xAxisIndex: 1,
 					yAxisIndex: 1,
 					itemStyle: {
-						color: '#eee'
+						color: 'lightgray'
 					},
 					data: Object.keys(builderJson.components).map(function (key) {
 						return builderJson.all - builderJson.components[key];
@@ -212,10 +233,24 @@
 					center: ['75%', '25%'],
 					data: Object.keys(downloadJson).map(function (key) {
 						return {
-							name: key.replace('.js', ''),
+							name: key,
 							value: downloadJson[key]
 						};
-					})
+					}),
+					label: {
+						color:'gray',
+						alignTo: 'labelLine',
+						formatter: '{name|{b}}\n{count|{c}}',
+						minMargin: 10,
+						edgeDistance: 8,
+						lineHeight: 15,
+						rich: {
+							count: {
+								fontSize: 10,
+								color: '#999'
+							}
+						}
+					},
 				},
 				{
 					type: 'pie',
@@ -223,10 +258,24 @@
 					center: ['75%', '75%'],
 					data: Object.keys(themeJson).map(function (key) {
 						return {
-							name: key.replace('.js', ''),
+							name: key,
 							value: themeJson[key]
 						};
-					})
+					}),
+					label: {
+						color:'gray',
+						alignTo: 'labelLine',
+						formatter: '{name|{b}}\n{count|{c}}',
+						minMargin: 10,
+						edgeDistance: 5,
+						lineHeight: 15,
+						rich: {
+							count: {
+								fontSize: 10,
+								color: '#999'
+							}
+						}
+					},
 				}
 			]
 		};
