@@ -20,7 +20,7 @@
 	<svelte:fragment slot="sidebarLeft">
 		<div
 			id="sidebar-left"
-			class="card list-nav h-[96vh] w-[14vw] p-5 text-sm rounded-none fixed z-10 overflow-y-auto hide-scrollbar"
+			class="card list-nav h-[96vh] w-[14vw] p-5 text-md rounded-none fixed z-10 overflow-y-auto hide-scrollbar"
 		>
 			<ul>
 				<li class=" variant-filled-secondary rounded-md text-white hover:variant-ghost-surface">

@@ -64,9 +64,9 @@
 		option = {
 			aria: {
 				show: true,
-				decal:{
-					show:true,
-					decals:{
+				decal: {
+					show: true,
+					decals: {
 						symbol: 'triangle'
 					}
 				}
@@ -122,7 +122,7 @@
 					bottom: '45%',
 					height: '20%',
 					left: 37,
-					containLabel: true,
+					containLabel: true
 				},
 				{
 					top: '55%',
@@ -156,7 +156,7 @@
 					axisLabel: {
 						interval: 0,
 						rotate: 30,
-						color:'gray'
+						color: 'gray'
 					},
 					splitLine: {
 						show: false
@@ -169,7 +169,7 @@
 					axisLabel: {
 						interval: 0,
 						rotate: 30,
-						color:'gray'
+						color: 'gray'
 					},
 					splitLine: {
 						show: false
@@ -208,7 +208,7 @@
 					z: 3,
 					label: {
 						position: 'right',
-						show: true,
+						show: true
 					},
 					data: Object.keys(builderJson.components).map(function (key) {
 						return builderJson.components[key];
@@ -238,7 +238,7 @@
 						};
 					}),
 					label: {
-						color:'gray',
+						color: 'gray',
 						alignTo: 'labelLine',
 						formatter: '{name|{b}}\n{count|{c}}',
 						minMargin: 10,
@@ -250,7 +250,7 @@
 								color: '#999'
 							}
 						}
-					},
+					}
 				},
 				{
 					type: 'pie',
@@ -263,7 +263,7 @@
 						};
 					}),
 					label: {
-						color:'gray',
+						color: 'gray',
 						alignTo: 'labelLine',
 						formatter: '{name|{b}}\n{count|{c}}',
 						minMargin: 10,
@@ -275,7 +275,7 @@
 								color: '#999'
 							}
 						}
-					},
+					}
 				}
 			]
 		};

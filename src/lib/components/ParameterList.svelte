@@ -2,7 +2,7 @@
 	export let params: string[] = [];
 </script>
 
-<div class="flex-1 list-decimal">
+<div class="flex-1 list-decimal break-all">
 	<h3 class="h3">Items:{params.length}</h3>
 	{#each params as param}
 		<li>{param}</li>

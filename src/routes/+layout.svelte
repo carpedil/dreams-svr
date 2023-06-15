@@ -18,9 +18,9 @@
 <svelte:head>
 	<title>{$page.data.title || 'DREAMS Server Api Test bundles'}</title>
 </svelte:head>
-<AppShell>
+<AppShell class="font-semibold 2xl">
 	<svelte:fragment slot="header">
-		<ol class="card flex flex-row justify-evenly p-5 text-sm">
+		<ol class="card flex flex-row justify-evenly p-5 text-xl">
 			<span>{data.title}</span>
 			<li><a href="/">Home</a></li>
 			{#each data.modules as module}

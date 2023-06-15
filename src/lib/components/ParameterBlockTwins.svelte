@@ -14,6 +14,6 @@
 	<div class="flex-1 p-5 variant-filled-surface overflow-y-auto hide-scrollbar">
 		<ParameterList params={meta1.SendParams} />
 		<hr class="!border-t-4" />
-		<ParameterList params={meta0.ReceivedParams} />
+		<ParameterList params={meta1.ReceivedParams} />
 	</div>
 </div>

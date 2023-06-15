@@ -113,7 +113,7 @@
 	};
 
 	const reset = () => {
-		const {FuncName,FuncId} = scenario;
+		const { FuncName, FuncId } = scenario;
 		scenario = new ScenarioData();
 		scenario.FuncName = FuncName;
 		scenario.FuncId = FuncId;
@@ -191,7 +191,12 @@
 			<Modal />
 
 			<label class="label">
-				<textarea class="textarea rounded-none" rows="18" placeholder=">>>" bind:value={output} />
+				<textarea
+					class="textarea rounded-none"
+					rows="18"
+					placeholder=">>> {scenario.FuncName ? `${scenario.FuncName}` : ''}"
+					bind:value={output}
+				/>
 			</label>
 			<Toast position="t" rounded="rounded-md" />
 		</svelte:fragment>

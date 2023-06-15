@@ -17,7 +17,7 @@ export async function POST(RequestEvent: any) {
 		return curr_max;
 	}, {} as { [key: string]: number });
 
-	// +1 as new scenario number for new scenario record 
+	// +1 as new scenario number for new scenario record
 	// if max_in_db retrun null, then curr_max.number counted from 1;
 	curr_max.number += 1;
 

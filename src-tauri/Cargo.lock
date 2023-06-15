@@ -103,6 +103,7 @@ dependencies = [
  "dotenvy",
  "entity",
  "migration",
+ "objc",
  "sea-orm 0.11.3",
  "serde",
  "serde_json",

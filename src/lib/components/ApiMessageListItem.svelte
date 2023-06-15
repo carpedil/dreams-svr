@@ -1,6 +1,7 @@
 <script lang="ts">
 	import type { ApiMessage } from '$lib/scenario';
 	import { AccordionItem, CodeBlock } from '@skeletonlabs/skeleton';
+	import ParameterList from './ParameterList.svelte';
 	export let msg: ApiMessage;
 </script>
 
@@ -36,18 +37,8 @@
 			placeholder="Leave a comment if needed."
 		/>
 		<div class="flex flex-row pl-10 w-100% max-h-[30vh]">
-			<div class="flex-1 list-decimal">
-				<h3 class="h3">Items:{msg.SendParams.length}</h3>
-				{#each msg.SendParams as param}
-					<li>{param}</li>
-				{/each}
-			</div>
-			<div class="flex-1 list-decimal break-all overflow-y-auto hide-scrollbar">
-				<h3 class="h3">Items:{msg.ReceivedParams.length}</h3>
-				{#each msg.ReceivedParams as param}
-					<li>{param}</li>
-				{/each}
-			</div>
+			<ParameterList params={msg.SendParams} />
+			<ParameterList params={msg.ReceivedParams} />
 		</div>
 	</svelte:fragment>
 </AccordionItem>
