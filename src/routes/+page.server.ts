@@ -25,54 +25,75 @@ export const load = async () => {
 		Array<{ total: number }>
 	>`SELECT COUNT(ApiName) total from ApiMessage;`;
 
-	let inner = await prisma.$queryRaw<
+	let ApiMessageDistCntbyHdr = await prisma.$queryRaw<
 		Array<{ name: string; value: number }>
 	>`SELECT distinct HDR as name , count(distinct ApiName) as value FROM ApiMessage group by HDR;`;
 
-	let outter = await prisma.$queryRaw<
-		Array<{ name: string; value: number; total: number }>
-	>`SELECT distinct FuncName as name , count(distinct ApiName) as value,count(ApiName) total  FROM ApiMessage group by FuncName;`;
+	let ApiMessageCntbyHdr = await prisma.$queryRaw<
+	Array<{ name: string; value: number }>
+	>`SELECT distinct HDR as name , count(ApiName) as value FROM ApiMessage group by HDR;`;
+
+	let ApiMessageDistCntbyFunctions = await prisma.$queryRaw<
+		Array<{ name: string; value: number }>
+	>`SELECT distinct FuncName as name , count(distinct ApiName) as value  FROM ApiMessage group by FuncName;`;
+
+	let ApiMessageCntbyFunctions = await prisma.$queryRaw<
+	Array<{ name: string; value: number }>
+	>`SELECT distinct FuncName as name , count(ApiName) as value FROM ApiMessage group by FuncName;`;
 
 	total = convertBigInt(total);
-	inner = convertBigInt(inner);
-	outter = convertBigInt(outter);
-	// console.log(total,'\n');
-	// console.log(inner,'\n');
-	// console.log(outter,'\n');
+	ApiMessageDistCntbyHdr = convertBigInt(ApiMessageDistCntbyHdr);
+	ApiMessageCntbyHdr = convertBigInt(ApiMessageCntbyHdr);
+	ApiMessageDistCntbyFunctions = convertBigInt(ApiMessageDistCntbyFunctions);
+	ApiMessageCntbyFunctions = convertBigInt(ApiMessageCntbyFunctions);
+
 
 	const mapped_total = total.reduce((obj, m) => {
 		obj['all'] = m.total;
 		return obj;
 	}, {} as { [key: string]: number });
 
-	console.log(mapped_total);
+	// console.log(mapped_total);
 
-	const mapped_inner = inner.reduce((obj, m) => {
+	const mapped_ApiMessageDistCntbyHdr = ApiMessageDistCntbyHdr.reduce((obj, m) => {
 		obj[m.name] = m.value;
 		return obj;
 	}, {} as { [key: string]: number });
 
-	console.log(mapped_inner);
+	// console.log(mapped_ApiMessageDistCntbyHdr);
 
-	const mapped_outter = outter.reduce((obj, m) => {
-		obj[m.name] = m.total;
+	const mapped_ApiMessageCntbyHdr = ApiMessageCntbyHdr.reduce((obj, m) => {
+		obj[m.name] = m.value;
 		return obj;
 	}, {} as { [key: string]: number });
 
-	console.log(mapped_outter);
+	// console.log(mapped_ApiMessageCntbyHdr);
+
+
+	const mapped_ApiMessageDistCntbyFunctions = ApiMessageDistCntbyFunctions.reduce((obj, m) => {
+		obj[m.name] = m.value;
+		return obj;
+	}, {} as { [key: string]: number });
+
+	// console.log(mapped_ApiMessageDistCntbyFunctions);
+
+
+	const mapped_ApiMessageCntbyFunctions = ApiMessageCntbyFunctions.reduce((obj, m) => {
+		obj[m.name] = m.value;
+		return obj;
+	}, {} as { [key: string]: number });
+
+	// console.log(mapped_ApiMessageCntbyFunctions);
 
 	return {
 		data: {
 			builderJson: {
 				all: mapped_total.all,
-				charts: mapped_inner,
-				componnets: mapped_outter
+				charts: mapped_ApiMessageCntbyHdr,
+				componnets: mapped_ApiMessageCntbyFunctions
 			},
-			downloadJson: mapped_inner,
-			themeJson: mapped_outter,
-			total,
-			inner: mapped_inner,
-			outter: mapped_outter
+			downloadJson: mapped_ApiMessageDistCntbyHdr,
+			themeJson: mapped_ApiMessageDistCntbyFunctions,
 		}
 	};
 };
