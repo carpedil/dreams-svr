@@ -137,26 +137,22 @@
 			>
 		{/each}
 		<svelte:fragment slot="panel">
-			<div class="flex flex-row">
-				<label class="label flex-1 items-center">
-					<textarea
-						class="input rounded-none hide-scrollbar text-sm"
-						rows="4"
-						value={scenario.OldRawLogs ? scenario.OldRawLogs : ''}
-						placeholder="Enter the log information about using the old server. eg.>>> 10.9.64.28"
-						on:change={handleOldMessageChange}
-					/>
-				</label>
-				<label class="label flex-1 items-center">
-					<textarea
-						class="input rounded-none hide-scrollbar text-sm"
-						rows="4"
-						value={scenario.NewRawLogs ? scenario.NewRawLogs : ''}
-						placeholder="Enter the log information about using the new server. eg.>>> 10.162.138.83"
-						on:change={handleNewMessageChange}
-					/>
-				</label>
-				<div class="flex flex-row h-[6.5vh]">
+			<div class="flex flex-row items-center">
+				<textarea
+					class="input rounded-none hide-scrollbar text-sm"
+					rows="4"
+					value={scenario.OldRawLogs ? scenario.OldRawLogs : ''}
+					placeholder="Enter the log information about using the old server. eg.>>> 10.9.64.28"
+					on:change={handleOldMessageChange}
+				/>
+				<textarea
+					class="input rounded-none hide-scrollbar text-sm"
+					rows="4"
+					value={scenario.NewRawLogs ? scenario.NewRawLogs : ''}
+					placeholder="Enter the log information about using the new server. eg.>>> 10.162.138.83"
+					on:change={handleNewMessageChange}
+				/>
+				<div class="flex flex-row h-[6vh]">
 					<button class="btn-sm variant-filled-secondary rounded-md w-[8vw]" on:click={save}
 						>Save</button
 					>
