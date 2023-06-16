@@ -120,8 +120,8 @@
 				<ApiMessageList _OldApiMessages={$selectedApiMessageList} />
 			</div>
 			<div class="flex flex-row p-2">
-				<input type="button" value="Compare" class="flex-1 bg-orange-600" on:click={view} />
-				<input type="button" value="Clear" class="flex-1 bg-slate-600" on:click={clear} />
+				<input type="button" value="Compare" class="flex-1 bg-orange-600 h-[3vh]" on:click={view} />
+				<input type="button" value="Clear" class="flex-1 bg-slate-600 h-[3vh]" on:click={clear} />
 			</div>
 		</div>
 		<Drawer>
@@ -155,7 +155,7 @@
 						<ParameterBlockTwins meta0={$drawerStore.meta[0]} meta1={$drawerStore.meta[1]} />
 						<blockquote class="blockquote h2">
 							*注意⚠️: 参数列表解析可能存在一定偏差,请仔细对比发送和接受的消息原文 <button
-								class="btn variant-filled-secondary rounded-xl float-right pl-10 pr-1"
+								class="btn variant-filled-secondary rounded-xl float-right"
 								on:click={() => {
 									drawerStore.close();
 								}}>CLOSE(ESC)</button

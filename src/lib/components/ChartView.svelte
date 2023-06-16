@@ -90,7 +90,7 @@
 				{
 					text: 'By HDRs',
 					subtext:
-						'总计 ' +
+						'总计(已去重) ' +
 						Object.keys(downloadJson).reduce(function (all, key) {
 							return all + downloadJson[key];
 						}, 0),
@@ -103,7 +103,7 @@
 				{
 					text: 'By Functions',
 					subtext:
-						'总计 ' +
+						'总计(已去重) ' +
 						Object.keys(themeJson).reduce(function (all, key) {
 							return all + themeJson[key];
 						}, 0),

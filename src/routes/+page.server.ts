@@ -30,7 +30,7 @@ export const load = async () => {
 	>`SELECT distinct HDR as name , count(distinct ApiName) as value FROM ApiMessage group by HDR;`;
 
 	let ApiMessageCntbyHdr = await prisma.$queryRaw<
-	Array<{ name: string; value: number }>
+		Array<{ name: string; value: number }>
 	>`SELECT distinct HDR as name , count(ApiName) as value FROM ApiMessage group by HDR;`;
 
 	let ApiMessageDistCntbyFunctions = await prisma.$queryRaw<
@@ -38,7 +38,7 @@ export const load = async () => {
 	>`SELECT distinct FuncName as name , count(distinct ApiName) as value  FROM ApiMessage group by FuncName;`;
 
 	let ApiMessageCntbyFunctions = await prisma.$queryRaw<
-	Array<{ name: string; value: number }>
+		Array<{ name: string; value: number }>
 	>`SELECT distinct FuncName as name , count(ApiName) as value FROM ApiMessage group by FuncName;`;
 
 	total = convertBigInt(total);
@@ -46,7 +46,6 @@ export const load = async () => {
 	ApiMessageCntbyHdr = convertBigInt(ApiMessageCntbyHdr);
 	ApiMessageDistCntbyFunctions = convertBigInt(ApiMessageDistCntbyFunctions);
 	ApiMessageCntbyFunctions = convertBigInt(ApiMessageCntbyFunctions);
-
 
 	const mapped_total = total.reduce((obj, m) => {
 		obj['all'] = m.total;
@@ -69,14 +68,12 @@ export const load = async () => {
 
 	// console.log(mapped_ApiMessageCntbyHdr);
 
-
 	const mapped_ApiMessageDistCntbyFunctions = ApiMessageDistCntbyFunctions.reduce((obj, m) => {
 		obj[m.name] = m.value;
 		return obj;
 	}, {} as { [key: string]: number });
 
 	// console.log(mapped_ApiMessageDistCntbyFunctions);
-
 
 	const mapped_ApiMessageCntbyFunctions = ApiMessageCntbyFunctions.reduce((obj, m) => {
 		obj[m.name] = m.value;
@@ -93,7 +90,7 @@ export const load = async () => {
 				componnets: mapped_ApiMessageCntbyFunctions
 			},
 			downloadJson: mapped_ApiMessageDistCntbyHdr,
-			themeJson: mapped_ApiMessageDistCntbyFunctions,
+			themeJson: mapped_ApiMessageDistCntbyFunctions
 		}
 	};
 };
