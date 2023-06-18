@@ -100,34 +100,34 @@
 						color: '#4A65BF'
 					}
 				},
-				{
-					text: 'By Functions',
-					subtext:
-						'总计(已去重) ' +
-						Object.keys(themeJson).reduce(function (all, key) {
-							return all + themeJson[key];
-						}, 0),
-					left: '75%',
-					top: '50%',
-					textAlign: 'center',
-					textStyle: {
-						color: '#4A65BF'
-					}
-				}
+				// {
+				// 	text: 'By Functions',
+				// 	subtext:
+				// 		'总计(已去重) ' +
+				// 		Object.keys(themeJson).reduce(function (all, key) {
+				// 			return all + themeJson[key];
+				// 		}, 0),
+				// 	left: '75%',
+				// 	top: '50%',
+				// 	textAlign: 'center',
+				// 	textStyle: {
+				// 		color: '#4A65BF'
+				// 	}
+				// }
 			],
 			grid: [
 				{
 					top: 50,
 					width: '48.3%',
 					bottom: '45%',
-					height: '20%',
+					height: '25%',
 					left: 37,
 					containLabel: true
 				},
 				{
-					top: '55%',
+					top: '50%',
 					width: '50%',
-					bottom: 0,
+					bottom: 20,
 					left: 10,
 					containLabel: true
 				}
@@ -155,7 +155,7 @@
 					data: Object.keys(builderJson.charts),
 					axisLabel: {
 						interval: 0,
-						rotate: 30,
+						rotate: 0,
 						color: 'gray'
 					},
 					splitLine: {
@@ -168,7 +168,7 @@
 					data: Object.keys(builderJson.components),
 					axisLabel: {
 						interval: 0,
-						rotate: 30,
+						rotate: 0,
 						color: 'gray'
 					},
 					splitLine: {
@@ -229,7 +229,7 @@
 				},
 				{
 					type: 'pie',
-					radius: [0, '30%'],
+					radius: [0, '25%'],
 					center: ['75%', '25%'],
 					data: Object.keys(downloadJson).map(function (key) {
 						return {
@@ -240,22 +240,22 @@
 					label: {
 						color: 'gray',
 						alignTo: 'labelLine',
-						formatter: '{name|{b}}\n{count|{c}}',
+						formatter: '{name|{b}}  {count|{c}}',
 						minMargin: 10,
-						edgeDistance: 8,
-						lineHeight: 15,
+						edgeDistance: 5,
+						lineHeight: 2,
 						rich: {
 							count: {
-								fontSize: 10,
-								color: '#999'
+								fontSize: 12,
+								color: 'red'
 							}
 						}
 					}
 				},
 				{
 					type: 'pie',
-					radius: [0, '30%'],
-					center: ['75%', '75%'],
+					radius: [0, '25%'],
+					center: ['75%', '65%'],
 					data: Object.keys(themeJson).map(function (key) {
 						return {
 							name: key,
@@ -265,14 +265,14 @@
 					label: {
 						color: 'gray',
 						alignTo: 'labelLine',
-						formatter: '{name|{b}}\n{count|{c}}',
+						formatter: '{name|{b}}  {count|{c}}',
 						minMargin: 10,
 						edgeDistance: 5,
-						lineHeight: 15,
+						lineHeight: 2,
 						rich: {
 							count: {
-								fontSize: 10,
-								color: '#999'
+								fontSize: 12,
+								color: 'red'
 							}
 						}
 					}
