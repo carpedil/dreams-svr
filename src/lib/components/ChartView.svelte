@@ -99,7 +99,7 @@
 					textStyle: {
 						color: '#4A65BF'
 					}
-				},
+				}
 				// {
 				// 	text: 'By Functions',
 				// 	subtext:
@@ -229,8 +229,8 @@
 				},
 				{
 					type: 'pie',
-					radius: [0, '25%'],
-					center: ['75%', '25%'],
+					radius: [0, '20%'],
+					center: ['75%', '20%'],
 					data: Object.keys(downloadJson).map(function (key) {
 						return {
 							name: key,
@@ -254,8 +254,9 @@
 				},
 				{
 					type: 'pie',
-					radius: [0, '25%'],
-					center: ['75%', '65%'],
+					radius: [0, '20%'],
+					center: ['75%', '74%'],
+					bottom: 5,
 					data: Object.keys(themeJson).map(function (key) {
 						return {
 							name: key,
@@ -267,7 +268,7 @@
 						alignTo: 'labelLine',
 						formatter: '{name|{b}}  {count|{c}}',
 						minMargin: 10,
-						edgeDistance: 5,
+						edgeDistance: 15,
 						lineHeight: 2,
 						rich: {
 							count: {

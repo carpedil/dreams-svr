@@ -9,7 +9,7 @@
 	<svelte:fragment slot="lead">
 		<div class="flex flex-row items-center">
 			<span class="badge-icon variant-filled-secondary mr-2">{msg.Seq}</span>
-			<span class="text-sm bg-green-500 pr-2 pl-2">/{msg.ApiName}</span>
+			<span class="text-sm bg-blue-500 p-1.5 rounded-md">/{msg.ApiName}</span>
 		</div>
 	</svelte:fragment>
 	<svelte:fragment slot="summary"

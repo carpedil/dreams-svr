@@ -73,6 +73,7 @@
 	onMount(() => {
 		showable.update((s) => (s = false));
 	});
+	$: console.log(data.func);
 </script>
 
 <div class="card pl-[14vw] h-[96vh] w-auto overflow-y-auto hide-scrollbar">
@@ -85,6 +86,8 @@
 					<th>ScenarioName</th>
 					<th>Comment</th>
 					<th>Messages</th>
+					<!-- <th>RawOldLogs</th>
+					<th>RawNewLogs</th> -->
 				</tr>
 			</thead>
 			<tbody>
@@ -95,6 +98,8 @@
 						<td>{row.Name}</td>
 						<td>{row.Comment}</td>
 						<td>{row.messages.length}</td>
+						<!-- <td>{row.OldRawLogs}</td>
+						<td>{row.NewRawLogs}</td> -->
 					</tr>
 				{/each}
 			</tbody>
