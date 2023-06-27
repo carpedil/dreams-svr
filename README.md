@@ -90,3 +90,6 @@ npm run tauri init
 npm run tauri dev
 
 npm install -D @tailwindcss/forms
+
+# node version 
+16.20.0
