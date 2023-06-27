@@ -1,6 +1,3 @@
-// This is your Prisma schema file,
-// learn more about it in the docs: https://pris.ly/d/prisma-schema
-
 generator client {
   provider = "prisma-client-js"
 }
@@ -11,52 +8,50 @@ datasource db {
 }
 
 model Module {
-  Id Int @id @unique @default(autoincrement())
-  Name String 
-  Uri String @unique
+  Id        Int         @id @unique @default(autoincrement())
+  Name      String
+  Uri       String      @unique
   Functions Functions[]
 }
 
-
 model Functions {
-  Id Int @id @unique @default(autoincrement())
-  Name String
-  Uri String
+  Id        Int        @id @unique @default(autoincrement())
+  Name      String
+  Uri       String
   ModuleUri String
+  RefModule Module     @relation(fields: [ModuleUri], references: [Uri])
   Scenarios Scenario[]
-  RefModule Module @relation(references: [Uri],fields: [ModuleUri])
 }
 
 model Scenario {
-  Id Int @id @unique @default(autoincrement())
-  Name String
-  No Int
-  FuncName String
-  OldRawLogs String?
-  NewRawLogs String?
-  Comment String?
-  FuncId Int
-  CreateAt DateTime? @default(now()) 
-  UpdatedAt DateTime? @default(now()) @updatedAt
-  messages ApiMessage[]
-  RefFunction Functions @relation(references: [Id],fields: [FuncId])
+  Id          Int          @id @unique @default(autoincrement())
+  Name        String
+  No          Int
+  FuncName    String
+  OldRawLogs  String?
+  NewRawLogs  String?
+  Comment     String?
+  FuncId      Int
+  CreateAt    DateTime?    @default(now())
+  UpdatedAt   DateTime?    @default(now()) @updatedAt
+  messages    ApiMessage[]
+  RefFunction Functions    @relation(fields: [FuncId], references: [Id])
 }
 
-
 model ApiMessage {
-  Id Int @id @unique @default(autoincrement())
-  Seq Int
-  FuncName String
-  ApiName String
-  Platform String
-  HDR String
-  Sendto String?
-  Received String?
-  SendParams String?
+  Id             Int       @id @unique @default(autoincrement())
+  Seq            Int
+  FuncName       String
+  ApiName        String
+  Platform       String
+  HDR            String
+  Sendto         String?
+  Received       String?
+  SendParams     String?
   ReceivedParams String?
-  Comment String?
-  ScenarioId Int
-  CreateAt DateTime? @default(now()) 
-  UpdatedAt DateTime? @default(now()) @updatedAt
-  RefScenario Scenario @relation(references: [Id],fields: [ScenarioId])
+  Comment        String?
+  ScenarioId     Int
+  CreateAt       DateTime? @default(now())
+  UpdatedAt      DateTime? @default(now()) @updatedAt
+  RefScenario    Scenario  @relation(fields: [ScenarioId], references: [Id])
 }
