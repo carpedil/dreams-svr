@@ -125,8 +125,9 @@
 					containLabel: true
 				},
 				{
-					top: '50%',
+					top: '35%',
 					width: '50%',
+					height: '65%',
 					bottom: 20,
 					left: 10,
 					containLabel: true
